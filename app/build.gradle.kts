@@ -16,6 +16,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "API_KEY", "\"147c6b01e94b4d75b4fa449bc6c26327\"")
     }
 
     buildTypes {
@@ -32,7 +34,19 @@ android {
         jvmTarget = "11"
     }
     buildFeatures {
+        buildConfig = true
         compose = true
+    }
+    flavorDimensions += "newsSource"
+    productFlavors {
+        create("bbc") {
+            dimension = "newsSource"
+            buildConfigField("String", "NEWS_SOURCE", "\"bbc-news\"")
+        }
+        create("cnn") {
+            dimension = "newsSource"
+            buildConfigField("String", "NEWS_SOURCE", "\"cnn\"")
+        }
     }
 }
 
@@ -46,11 +60,25 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    //Added dependencies
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.retrofit)
+    implementation(libs.converter.moshi)
+    implementation(libs.moshi.kotlin)
+    implementation(libs.logging.interceptor)
+    implementation(libs.coil.compose)
+    implementation(libs.androidx.biometric.ktx)
+    implementation(libs.gson)
+    implementation(libs.junit)
+    implementation(libs.kotlinx.coroutines.test)
+    implementation(libs.androidx.core.testing)
+    testImplementation(libs.junit)
 }
